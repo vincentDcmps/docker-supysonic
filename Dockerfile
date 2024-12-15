@@ -1,16 +1,16 @@
 ARG ALPINE_VERSION
 ARG PYTHON_VERSION
 
-FROM python:${PYTHON_VERSION}
+FROM docker.io/python:${PYTHON_VERSION}
 ARG SUPYSONIC_VERSION
 COPY .circleci /supysonic/build
-ADD https://github.com/spl0k/supysonic/archive/${SUPYSONIC_VERSION}.tar.gz \
+ADD https://github.com/vincentdcmps/supysonic/archive/${SUPYSONIC_VERSION}.tar.gz \
   /supysonic/src/supysonic.tar.gz
 ARG DOCKER_TAG
 ENV DOCKER_TAG=${DOCKER_TAG}
 RUN /supysonic/build/build.sh
 
-FROM alpine:${ALPINE_VERSION}
+FROM docker.io/alpine:${ALPINE_VERSION}
 ARG EXTRA_PACKAGES
 COPY --from=0 /supysonic/pkg /
 RUN apk add expat libffi libjpeg-turbo sqlite-libs ${EXTRA_PACKAGES} && \
