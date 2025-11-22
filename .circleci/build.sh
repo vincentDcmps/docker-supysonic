@@ -14,7 +14,7 @@ apk -U --no-progress upgrade
 apk --no-progress add gcc musl-dev zlib-dev sqlite-dev jpeg-dev libjpeg-turbo
 
 # install python deps
-pip install setuptools flup
+pip install flup
 [[ ${DOCKER_TAG} == *sql ]] && \
   pip install pymysql psycopg2-binary
 
@@ -24,7 +24,7 @@ tar xzf supysonic.tar.gz
 
 # install supysonic
 cd supysonic-*
-python setup.py install
+pip install .
 
 # create supysonic package
 install -d -m755 "/supysonic/pkg/usr/bin"
